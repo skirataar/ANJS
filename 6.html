@@ -1,0 +1,60 @@
+<html ng-app="ToDoApp">
+
+<head>
+    <title>create a simple to-do list application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script>
+        var app = angular.module("ToDoApp", []);
+        app.controller("ToDoCntrl", function ($scope) {
+            $scope.tasks = ['Task1',
+                'Task2',
+                'Task3'];
+            $scope.NewTask = ''
+            $scope.AddTask = function () {
+                $scope.tasks.push($scope.NewTask);
+                $scope.NewTask = '';
+            }
+            $scope.deleteTask = function (index) {
+                var confirmDel = confirm("Are sure you want to delete")
+                if (confirmDel)
+                    $scope.tasks.splice(index, 1);
+            }
+
+            $scope.editTask = function (index) {
+                var updatedTask = prompt("Enter the updated Task")
+                if (updatedTask != null) {
+                    $scope.tasks.splice(index, 1, updatedTask);
+                }
+            }
+        }
+        );
+    </script>
+</head>
+
+<body ng-controller="ToDoCntrl">
+    <form ng-submit="AddTask()">
+        <input type="text" ng-model="NewTask" placeholder="Add a new task" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="task in tasks">
+                <td>{{ task }}</td>
+                <td>
+                    <button ng-click="editTask($index)">Edit</button>
+                    <button ng-click="deleteTask($index)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

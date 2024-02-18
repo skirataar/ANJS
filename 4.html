@@ -1,0 +1,37 @@
+<html ng-app="MathApp">
+
+<head>
+    <title> Mathematical Operations</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+<script>
+    var app = angular.module("MathApp", []);
+    app.controller("Mathcntrl", function ($scope) {
+        $scope.factres = null;
+        $scope.square = function (num) {
+            $scope.squarenum = num * num;
+        }
+        $scope.factorial = function (num) {
+            if (num > 0) {
+                var fact = 1;
+                for (var i = 1; i <= num; i++) {
+                    fact = fact * i;
+                }
+            }
+            else
+                fact = "Cannot calculate factorial for negative numbers"
+            $scope.factres = fact;
+        }
+    });
+</script>
+
+<body ng-controller="Mathcntrl">
+    Enter the Number
+    <input type="number" ng-model="num">
+    <button ng-click="square(num)">Square</button>
+    <button ng-click="factorial(num)">Factorial</button>
+    <p ng-show="squarenum!=undefined">Square Root : {{squarenum}}</p>
+    <p ng-show="factres!=undefined">Factorial : {{factres}}</p>
+</body>
+
+</html>
